@@ -10,10 +10,10 @@ cd Python-2.5.4
 sudo ./configure --prefix=/opt/python2.5
 make && make install 
 ln -s /opt/python2.5/bin/python2.5 /usr/bin/python2.5
-su  
+
 echo /opt/python2.5/lib >> /etc/ld.so.conf.d/opt-python2.5.conf  
 echo /sbin/ldconfig     >> /etc/ld.so.conf.d/opt-python2.5.conf  
-exit
+
 ln -s /opt/python2.5/lib/libpython2.5.so /opt/python2.5/lib/python2.5/config
 cd
 wget http://www.secdev.org/projects/scapy/files/scapy-latest.tar.gz  
