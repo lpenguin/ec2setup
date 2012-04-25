@@ -2,19 +2,24 @@
 
 yum -y install python-devel zlib-devel openssl-devel libpcap-devel.x86_64 subversion screen glibc-devel
 yum -y install automake autoconf gcc-c++ 
-mkdir /opt/src   
-cd /opt/src
-wget http://python.org/ftp/python/2.5.4/Python-2.5.4.tgz 
-tar xzvf Python-2.5.4.tgz
-cd Python-2.5.4
-sudo ./configure --prefix=/opt/python2.5
-make && make install 
-ln -s /opt/python2.5/bin/python2.5 /usr/bin/python2.5
 
-echo /opt/python2.5/lib >> /etc/ld.so.conf.d/opt-python2.5.conf  
-echo /sbin/ldconfig     >> /etc/ld.so.conf.d/opt-python2.5.conf  
+#python2.5
+if [ ! -f /usr/bin/python2.5 ] ; then
+    mkdir /opt/src   
+    cd /opt/src
+    if [ ! -f ./Python-2.5.4.tgz ] ; then
+        wget http://python.org/ftp/python/2.5.4/Python-2.5.4.tgz 
+        tar xzvf Python-2.5.4.tgz
+    fi
+    cd Python-2.5.4
+    ./configure --prefix=/opt/python2.5
+    make && make install 
+    ln -s /opt/python2.5/bin/python2.5 /usr/bin/python2.5
+    echo /opt/python2.5/lib >> /etc/ld.so.conf.d/opt-python2.5.conf  
+    echo /sbin/ldconfig     >> /etc/ld.so.conf.d/opt-python2.5.conf  
+    ln -s /opt/python2.5/lib/libpython2.5.so /opt/python2.5/lib/python2.5/config
+fi
 
-ln -s /opt/python2.5/lib/libpython2.5.so /opt/python2.5/lib/python2.5/config
 cd
 wget http://www.secdev.org/projects/scapy/files/scapy-latest.tar.gz  
 tar -xzf scapy-latest.tar.gz
